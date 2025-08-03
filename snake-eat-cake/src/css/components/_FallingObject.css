@@ -1,0 +1,20 @@
+/* src/components/FallingObject.css */
+.falling-object {
+  position: fixed;
+  top: -100px;
+  width: 50px; /* Adjust size as needed */
+  height: auto;
+  animation: fall 3s linear forwards;
+  z-index: 9999;
+}
+
+@keyframes fall {
+  0% {
+    top: -100px;
+    opacity: 1;
+  }
+  100% {
+    top: 110vh;
+    opacity: 1;
+  }
+}
