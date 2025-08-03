@@ -11,6 +11,8 @@ const numberOfObjects = 100;
 function App() {
   const [objects, setObjects] = useState<number[]>([]);
   const [showEnd, setShowEnd] = useState(false);
+  const [cakeEaten, setCakeEaten] = useState(false);
+  const [snakePosition, setSnakePosition] = useState({ x: 0, y: 0 });
 
   // Memoize the Particles component to prevent re-rendering
   const particlesComponent = useMemo(
@@ -31,6 +33,28 @@ function App() {
     []
   );
 
+  // Handle cake eaten event
+  const handleCakeEaten = (position: { x: number; y: number }) => {
+    console.log("Snake position received:", position);
+    setSnakePosition(position);
+    // Don't set cakeEaten here - let useEffect handle it
+  };
+
+  // Update cakeEaten after snakePosition is set
+  useEffect(() => {
+    console.log(snakePosition);
+    if (snakePosition.x !== 0 || snakePosition.y !== 0) {
+      setCakeEaten(true);
+
+      // Hide the text after 1 second
+      const timer = setTimeout(() => {
+        setCakeEaten(false);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [snakePosition]);
+
   useEffect(() => {
     let objectCount = 0;
 
@@ -47,8 +71,6 @@ function App() {
 
     return () => clearInterval(interval);
   }, []);
-
-  console.log(objects);
 
   return (
     <div>
@@ -96,7 +118,20 @@ function App() {
         <div style={{ width: "100%", height: "400px", position: "relative" }}>
           {particlesComponent}
         </div>
-        <Snake initialPosition={100} />
+        <Snake initialPosition={100} onCakeEaten={handleCakeEaten} />
+
+        {/* Text that appears above snake when cake is eaten */}
+        {cakeEaten && (
+          <div
+            className="fixed text-white text-xl font-bold animate-bounce z-20 pointer-events-none"
+            style={{
+              left: `${snakePosition.x}px`,
+              top: `${snakePosition.y - 40}px`,
+            }}
+          >
+            NOM
+          </div>
+        )}
       </div>
     </div>
   );

@@ -14,13 +14,11 @@
 .text-huge {
   font-size: 8rem;
   font-weight: 900;
-  line-height: 0.9;
 }
 
 .text-large {
   font-size: 6rem;
-  font-weight: 900;
-  line-height: 0.9;
+  font-weight: 700;
 }
 
 a {
