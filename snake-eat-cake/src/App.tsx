@@ -45,6 +45,7 @@ function App() {
     console.log(snakePosition);
     if (snakePosition.x !== 0 || snakePosition.y !== 0) {
       setCakeEaten(true);
+      console.log(cakeEaten);
 
       // Hide the text after 1 second
       const timer = setTimeout(() => {
@@ -119,19 +120,6 @@ function App() {
           {particlesComponent}
         </div>
         <Snake initialPosition={100} onCakeEaten={handleCakeEaten} />
-
-        {/* Text that appears above snake when cake is eaten */}
-        {cakeEaten && (
-          <div
-            className="fixed text-white text-xl font-bold animate-bounce z-20 pointer-events-none"
-            style={{
-              left: `${snakePosition.x}px`,
-              top: `${snakePosition.y - 40}px`,
-            }}
-          >
-            NOM
-          </div>
-        )}
       </div>
     </div>
   );
