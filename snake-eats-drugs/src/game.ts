@@ -1,10 +1,8 @@
 import sunImg from '/sun.png';
 import triangleImg from '/triangle.png';
 
-export function startGame() {
-    const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
+export function startGame(canvas: HTMLCanvasElement, scoreEl: HTMLDivElement) {
     const ctx = canvas.getContext('2d')!;
-    const scoreEl = document.getElementById('score')!;
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -125,7 +123,8 @@ export function startGame() {
     const triangle = new Food('triangle');
 
     function updateScore() {
-        scoreEl.innerHTML = `Sun: ${score.sun} | Triangle: ${score.triangle}`;
+        console.log(`Sun: ${score.sun} | Triangle: ${score.triangle}`);
+        scoreEl.innerHTML = ``;
     }
 
     function gameLoop() {
